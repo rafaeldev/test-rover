@@ -2,7 +2,7 @@ package br.com.getninjas.rover.enumeration;
 
 /**
  *
- * @author Dell
+ * @author Rafael G. Francisco
  */
 public enum Command {
     L("Left"), R("Right"), M("Move");

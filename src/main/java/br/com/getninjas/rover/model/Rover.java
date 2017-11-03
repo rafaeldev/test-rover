@@ -3,7 +3,7 @@ package br.com.getninjas.rover.model;
 import br.com.getninjas.rover.enumeration.Guidance;
 
 /**
- * @author Dell
+ * @author Rafael G. Francisco
  */
 public class Rover {
 

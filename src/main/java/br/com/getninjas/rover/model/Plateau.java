@@ -2,7 +2,7 @@ package br.com.getninjas.rover.model;
 
 /**
  *
- * @author Dell
+ * @author Rafael G. Francisco
  */
 public class Plateau {
     
