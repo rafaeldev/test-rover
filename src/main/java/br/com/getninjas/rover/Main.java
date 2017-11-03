@@ -1,7 +1,7 @@
 package br.com.getninjas.rover;
 
 import br.com.getninjas.rover.enumeration.Guidance;
-import br.com.getninjas.rover.manager.RoverNavigationControll;
+import br.com.getninjas.rover.manager.RoverNavigationControl;
 import br.com.getninjas.rover.model.Plateau;
 import br.com.getninjas.rover.model.Rover;
 
@@ -20,7 +20,7 @@ public class Main {
         String commands;
         String report;
         
-        RoverNavigationControll rnc = new RoverNavigationControll();
+        RoverNavigationControl rnc = new RoverNavigationControl();
         
         rover = new Rover(1, 2, Guidance.N);
         commands = "LMLMLMLMM";
