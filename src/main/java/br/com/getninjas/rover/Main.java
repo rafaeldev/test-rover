@@ -1,12 +1,12 @@
 package br.com.getninjas.rover;
 
 import br.com.getninjas.rover.enumeration.Guidance;
-import br.com.getninjas.rover.manager.RoverManager;
+import br.com.getninjas.rover.manager.RoverNavigationControl;
 import br.com.getninjas.rover.model.Plateau;
 import br.com.getninjas.rover.model.Rover;
 
 /**
- * @author Dell
+ * @author Rafael G. Francisco
  */
 public class Main {
 
@@ -18,22 +18,30 @@ public class Main {
         Plateau plateau = new Plateau(5, 5);
         Rover rover;
         String commands;
+        String report;
         
-        RoverManager roverManager = new RoverManager();
+        RoverNavigationControl rnc = new RoverNavigationControl();
         
-        rover = new Rover(1, 2, Guidance.N, plateau);
+        rover = new Rover(1, 2, Guidance.N);
         commands = "LMLMLMLMM";
-        roverManager.setRover(rover).setCommands(commands).walk();
-        printRover(rover);
         
-        rover = new Rover(3, 3, Guidance.E, plateau);
+        report = rnc.addPlateau(plateau)
+                    .addRover(rover)
+                    .addCommands(commands)
+                    .run();
+        
+        System.out.println(report);
+        
+        rover = new Rover(3, 3, Guidance.E);
         commands = "MMRMMRMRRM";
-        roverManager.setRover(rover).setCommands(commands).walk();
-        printRover(rover);
-    }
-    
-    private static void printRover(Rover rover) {
-        System.out.println(rover.getAxisX() + " " + rover.getAxisY() + " " + rover.getGuidance().toString());
+        
+        report = rnc.addPlateau(plateau)
+                    .addRover(rover)
+                    .addCommands(commands)
+                    .run();
+        
+        System.out.println(report);
+        
     }
     
 }
