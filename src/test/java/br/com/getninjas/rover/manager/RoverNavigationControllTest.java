@@ -20,7 +20,7 @@ import org.junit.rules.ExpectedException;
  */
 public class RoverNavigationControllTest {
 
-    RoverNavigationControll rnc;
+    RoverNavigationControl rnc;
 
     public RoverNavigationControllTest() {
     }
@@ -35,7 +35,7 @@ public class RoverNavigationControllTest {
 
     @Before
     public void setUp() {
-        rnc = new RoverNavigationControll();
+        rnc = new RoverNavigationControl();
     }
 
     @After
