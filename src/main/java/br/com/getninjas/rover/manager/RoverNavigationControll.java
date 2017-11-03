@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  *
  * @author Rafael G. Francisco
  */
-public class RoverNavigationControl {
+public class RoverNavigationControll {
 
     private Rover rover;
     private String commands;
@@ -28,7 +28,7 @@ public class RoverNavigationControl {
     private static final StringBuilder POSSIBLE_COMMANDS = new StringBuilder(Command.values().length);
     private static Pattern PATTERN;
     
-    public RoverNavigationControl() {
+    public RoverNavigationControll() {
         //Mapping sibling Guidances for each one
         MAP.put(Guidance.N, new GuidanceMap(Guidance.W, Guidance.E));
         MAP.put(Guidance.E, new GuidanceMap(Guidance.N, Guidance.S));
@@ -40,7 +40,7 @@ public class RoverNavigationControl {
         PATTERN = Pattern.compile("[^" + POSSIBLE_COMMANDS.toString() + "]");
     }
 
-    public RoverNavigationControl addRover(Rover rover) {
+    public RoverNavigationControll addRover(Rover rover) {
         if (rover == null) {
             throw new IllegalArgumentException("Rover can't be null!");
         }
@@ -51,7 +51,7 @@ public class RoverNavigationControl {
 
     private static final String EMPTY = "";
     
-    public RoverNavigationControl addCommands(String commands) {
+    public RoverNavigationControll addCommands(String commands) {
         if (commands == null || EMPTY.equals(commands)) {
             throw new IllegalArgumentException("Commands is invalid!");
         }
@@ -65,7 +65,7 @@ public class RoverNavigationControl {
         return this;
     }
 
-    public RoverNavigationControl addPlateau(Plateau plateau) {
+    public RoverNavigationControll addPlateau(Plateau plateau) {
         if (plateau == null) {
             throw new IllegalArgumentException("Plateau can't be null!");
         }
