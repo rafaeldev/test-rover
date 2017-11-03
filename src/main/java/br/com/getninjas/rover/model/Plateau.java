@@ -34,5 +34,9 @@ public class Plateau {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    public int getArea() {
+        return area;
+    }
     
 }

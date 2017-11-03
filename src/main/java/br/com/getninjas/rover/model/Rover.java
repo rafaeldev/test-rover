@@ -7,16 +7,14 @@ import br.com.getninjas.rover.enumeration.Guidance;
  */
 public class Rover {
 
-    private final Plateau plateau;
     private int axisX;
     private int axisY;
     private Guidance guidance;
 
-    public Rover(int axisX, int axisY, Guidance guidance, Plateau plateau) {
+    public Rover(int axisX, int axisY, Guidance guidance) {
         this.axisX = axisX;
         this.axisY = axisY;
         this.guidance = guidance;
-        this.plateau = plateau;
     }
 
     public int getAxisX() {
@@ -41,10 +39,6 @@ public class Rover {
 
     public void setGuidance(Guidance guidance) {
         this.guidance = guidance;
-    }
-
-    public Plateau getPlateau() {
-        return plateau;
     }
 
 }
