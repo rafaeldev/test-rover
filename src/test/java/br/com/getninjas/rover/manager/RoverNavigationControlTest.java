@@ -16,11 +16,14 @@ import org.junit.rules.ExpectedException;
 
 /**
  *
- * @author Dell
+ * @author Rafael G. Francisco
  */
 public class RoverNavigationControlTest {
 
     RoverNavigationControl rnc;
+    
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
 
     public RoverNavigationControlTest() {
     }
@@ -47,31 +50,13 @@ public class RoverNavigationControlTest {
      */
     @Test
     public void testAddRover() {
-        rnc.addRover(new Rover(1, 2, Guidance.N));
+        rnc.addRover(new Rover(1, 2, Guidance.N).setExploreCommands("LMRMM"));
     }
 
     @Test
     public void testAddRoverException() {
         exception.expect(IllegalArgumentException.class);
         rnc.addRover(null);
-    }
-
-    @Rule
-    public final ExpectedException exception = ExpectedException.none();
-
-    /**
-     * Test of addCommands method, of class RoverNavigationControll.
-     */
-    @Test
-    public void testAddCommands() {
-        rnc.addCommands("LMLMLMLMM");
-        rnc.addCommands("MMRMMRMRRM");
-    }
-
-    @Test
-    public void testAddCommandsException() {
-        exception.expect(IllegalArgumentException.class);
-        rnc.addCommands("XMMRMMRMRRM");
     }
 
     /**
@@ -97,16 +82,14 @@ public class RoverNavigationControlTest {
         String report;
         
         report = rnc.addPlateau(new Plateau(5, 5))
-                    .addRover(new Rover(1, 2, Guidance.N))
-                    .addCommands("LMLMLMLMM")
+                    .addRover(new Rover(1, 2, Guidance.N).setExploreCommands("LMLMLMLMM"))
                     .run();
         //testing perfect case 1
         assertEquals(report, "1 3 N");
         
         
         report = rnc.addPlateau(new Plateau(5, 5))
-                    .addRover(new Rover(3, 3, Guidance.E))
-                    .addCommands("MMRMMRMRRM")
+                    .addRover(new Rover(3, 3, Guidance.E).setExploreCommands("MMRMMRMRRM"))
                     .run();
         
         //testing perfect case 2
@@ -120,8 +103,8 @@ public class RoverNavigationControlTest {
         String report;
         
         report = rnc.addPlateau(new Plateau(5, 5))
-                    .addRover(new Rover(4, 8, Guidance.N)) //Axis Y bigger then plateau's axis Y limit
-                    .addCommands("LMLMLMLMM")
+                    //Axis Y bigger then plateau's axis Y limit
+                    .addRover(new Rover(4, 8, Guidance.N).setExploreCommands("LMLMLMLMM"))
                     .run();
     }
     
@@ -132,8 +115,8 @@ public class RoverNavigationControlTest {
         String report;
         
         report = rnc.addPlateau(new Plateau(5, 5))
-                    .addRover(new Rover(1, 2, Guidance.N))
-                    .addCommands("MMMMMMM") //Moving Rover until out of plateau
+                    //Moving Rover until out of plateau
+                    .addRover(new Rover(1, 2, Guidance.N).setExploreCommands("MMMMMMM")) 
                     .run();
     }
 
