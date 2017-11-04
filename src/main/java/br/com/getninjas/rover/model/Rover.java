@@ -10,6 +10,7 @@ public class Rover {
     private int axisX;
     private int axisY;
     private Guidance guidance;
+    private String exploreCommands;
 
     public Rover(int axisX, int axisY, Guidance guidance) {
         this.axisX = axisX;
@@ -39,6 +40,15 @@ public class Rover {
 
     public void setGuidance(Guidance guidance) {
         this.guidance = guidance;
+    }
+
+    public String getExploreCommands() {
+        return exploreCommands;
+    }
+
+    public Rover setExploreCommands(String exploreCommands) {
+        this.exploreCommands = exploreCommands;
+        return this;
     }
 
 }
