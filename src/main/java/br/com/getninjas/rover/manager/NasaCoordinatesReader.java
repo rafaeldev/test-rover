@@ -26,7 +26,7 @@ public class NasaCoordinatesReader {
     public Coordinates readFromResource() {
         try {
             return intrepetingCoordinates(internalCoodinates);
-        } catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException | PlateauCoordinatesException | NullPointerException ex) {
             Logger.getLogger(NasaCoordinatesReader.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
@@ -35,7 +35,7 @@ public class NasaCoordinatesReader {
     public Coordinates readFromPath(String path) {
         try {
             return intrepetingCoordinates(new File(path));
-        } catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException | PlateauCoordinatesException | NullPointerException ex) {
             Logger.getLogger(NasaCoordinatesReader.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
