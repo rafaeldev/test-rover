@@ -6,9 +6,12 @@ import br.com.getninjas.rover.model.Coordinates;
 import br.com.getninjas.rover.model.Plateau;
 import br.com.getninjas.rover.model.Rover;
 import br.com.getninjas.rover.util.DataPattern;
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,15 +21,18 @@ import java.util.logging.Logger;
  */
 public class NasaCoordinatesReader {
     
-    ClassLoader classLoader = getClass().getClassLoader();
-    File internalCoodinates = new File(classLoader.getResource("nasa-coordinates.txt").getFile());
+    InputStream in = getClass().getResourceAsStream("/nasa-coordinates.txt");
+    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
     
     private static final String EMPTY = "";
     
     public Coordinates readFromResource() {
         try {
-            return intrepetingCoordinates(internalCoodinates);
-        } catch (FileNotFoundException | PlateauCoordinatesException | NullPointerException ex) {
+            return intrepetingCoordinates(reader);
+            
+        } catch (PlateauCoordinatesException 
+                | NullPointerException 
+                | IOException ex) {
             Logger.getLogger(NasaCoordinatesReader.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
@@ -34,26 +40,26 @@ public class NasaCoordinatesReader {
     
     public Coordinates readFromPath(String path) {
         try {
-            return intrepetingCoordinates(new File(path));
-        } catch (FileNotFoundException | PlateauCoordinatesException | NullPointerException ex) {
+            return intrepetingCoordinates(new BufferedReader(new FileReader(path)));
+        } catch (PlateauCoordinatesException 
+                | NullPointerException 
+                | IOException ex) {
             Logger.getLogger(NasaCoordinatesReader.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
     
-    private Coordinates intrepetingCoordinates(File file) throws FileNotFoundException {
+    private Coordinates intrepetingCoordinates(BufferedReader reader) throws FileNotFoundException, IOException {
         int i = 0;
         
         Coordinates coordinates = new Coordinates();
         
-        try (Scanner scanner = new Scanner(file)) {
+        String line;
+        Rover rover = null;
+        while ((line = reader.readLine()) != null) {
+            line = line.trim();
             
-            Rover rover = null;
-            
-            while (scanner.hasNext()) {
-                String line = scanner.nextLine().trim();
-                
-                if (line.startsWith("#") || EMPTY.equals(line)) {
+            if (line.startsWith("#") || EMPTY.equals(line)) {
                     continue;
                 }
                 
@@ -76,7 +82,6 @@ public class NasaCoordinatesReader {
                 }
                 
                 i++;
-            }
         }
         
         return coordinates;
