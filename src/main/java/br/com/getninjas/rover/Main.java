@@ -20,18 +20,20 @@ public class Main {
     public static void main(String[] args) {
         //test();
         
+        //Opening scanner to user decide a operation
         Scanner scanner = new Scanner(System.in);
         int nextInt = 0;
         
         do {
             try {
-                System.out.println("Choice the file:");
-                System.out.println("[1] Commands from resource file on project");
-                System.out.println("[2] Set path to load file on read (with extension)");
+                System.out.println("choose one of the options:");
+                System.out.println("[1] Commands from resource file on project (input like from example)");
+                System.out.println("[2] Set path to load file to be read");
 
                 nextInt = scanner.nextInt();
             } catch (InputMismatchException mismatchException) {
-                System.out.println("\nInvalid value! Set a number from options\n");
+                System.out.println("\nInvalid value!");
+                System.out.println("choose one of the options:");
                 scanner.nextLine();
             }
         } while (nextInt != 1 && nextInt != 2);
@@ -44,7 +46,7 @@ public class Main {
         if (nextInt == 1) {
             coordinates = ncr.readFromResource();
         } else {
-            System.out.println("Please, set the complete path to file:");
+            System.out.println("Please, set the complete path to file (with extension):");
             String path = scanner.next();
             coordinates = ncr.readFromPath(path);
         }
@@ -59,6 +61,9 @@ public class Main {
         }
     }
     
+    /**
+     * Test method with values from the project example
+     */
     private static void test() {
         //Init the area where the rover will roll
         Plateau plateau = new Plateau(5, 5);

@@ -6,9 +6,9 @@ package br.com.getninjas.rover.model;
  */
 public class Plateau {
     
-    //para o eixo X
+    //to axis X
     private int base;
-    //para o eixo Y
+    //to axis Y
     private int height;
     
     final private int area;

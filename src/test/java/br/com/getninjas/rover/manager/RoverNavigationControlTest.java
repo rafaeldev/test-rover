@@ -103,8 +103,13 @@ public class RoverNavigationControlTest {
         String report;
         
         report = rnc.addPlateau(new Plateau(5, 5))
-                    //Axis Y bigger then plateau's axis Y limit
+                    //The position of the Rover Y axis is greater than the Y axis limit of the Plateau
                     .addRover(new Rover(4, 8, Guidance.N).setExploreCommands("LMLMLMLMM"))
+                    .run();
+        
+        report = rnc.addPlateau(new Plateau(5, 5))
+                    //The position of the Rover X axis is greater than the X axis limit of the Plateau
+                    .addRover(new Rover(7, 1, Guidance.W).setExploreCommands("LMLMLMLMM"))
                     .run();
     }
     
@@ -115,8 +120,8 @@ public class RoverNavigationControlTest {
         String report;
         
         report = rnc.addPlateau(new Plateau(5, 5))
-                    //Moving Rover until out of plateau
-                    .addRover(new Rover(1, 2, Guidance.N).setExploreCommands("MMMMMMM")) 
+                    //Moving Rover off the plateau
+                    .addRover(new Rover(1, 2, Guidance.E).setExploreCommands("MMMMMMM")) 
                     .run();
     }
 

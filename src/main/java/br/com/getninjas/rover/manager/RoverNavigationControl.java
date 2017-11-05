@@ -19,7 +19,6 @@ import java.util.regex.Matcher;
 public class RoverNavigationControl {
 
     private Rover rover;
-//    private String commands;
     private Plateau plateau;
     
     private static final Map<Guidance, GuidanceMap> MAP = new HashMap<>(Guidance.values().length);
@@ -86,7 +85,7 @@ public class RoverNavigationControl {
             }
         }
         
-        //return last position after the commands
+        //return actual position after execute commands
         return String.format("%d %d %s", rover.getAxisX(), rover.getAxisY(), rover.getGuidance().toString());
     }
     
