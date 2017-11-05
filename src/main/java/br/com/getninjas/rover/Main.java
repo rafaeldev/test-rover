@@ -36,6 +36,8 @@ public class Main {
             }
         } while (nextInt != 1 && nextInt != 2);
         
+        System.out.println("\n");
+        
         NasaCoordinatesReader ncr = new NasaCoordinatesReader();
         
         Coordinates coordinates;
