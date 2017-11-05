@@ -11,7 +11,7 @@ public enum Guidance {
     W("West", -1, Axis.X);
     
     private final String translate;
-    //Esse atributo indica qual a direção que será andada no eixo
+    //This attribute indicates which direction will be driven on the axis
     private final int axisValue;
     private final Axis axis;
 

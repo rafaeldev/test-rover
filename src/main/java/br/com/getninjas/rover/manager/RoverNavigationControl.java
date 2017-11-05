@@ -7,11 +7,10 @@ import br.com.getninjas.rover.exception.RoverInitialPositionException;
 import br.com.getninjas.rover.exception.RoverOutOfPlateauException;
 import br.com.getninjas.rover.model.Plateau;
 import br.com.getninjas.rover.model.Rover;
-import java.util.Arrays;
+import br.com.getninjas.rover.util.DataPattern;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -20,13 +19,9 @@ import java.util.regex.Pattern;
 public class RoverNavigationControl {
 
     private Rover rover;
-    private String commands;
     private Plateau plateau;
     
     private static final Map<Guidance, GuidanceMap> MAP = new HashMap<>(Guidance.values().length);
-    
-    private static final StringBuilder POSSIBLE_COMMANDS = new StringBuilder(Command.values().length);
-    private static Pattern PATTERN;
     
     public RoverNavigationControl() {
         //Mapping sibling Guidances for each one
@@ -34,34 +29,27 @@ public class RoverNavigationControl {
         MAP.put(Guidance.E, new GuidanceMap(Guidance.N, Guidance.S));
         MAP.put(Guidance.S, new GuidanceMap(Guidance.E, Guidance.W));
         MAP.put(Guidance.W, new GuidanceMap(Guidance.S, Guidance.N));
-        
-        Arrays.asList(Command.values()).stream().forEach(cmd -> POSSIBLE_COMMANDS.append(cmd.name()));
-        
-        PATTERN = Pattern.compile("[^" + POSSIBLE_COMMANDS.toString() + "]");
     }
 
+    private static final String EMPTY = "";
+    
     public RoverNavigationControl addRover(Rover rover) {
         if (rover == null) {
             throw new IllegalArgumentException("Rover can't be null!");
         }
         
-        this.rover = rover;
-        return this;
-    }
-
-    private static final String EMPTY = "";
-    
-    public RoverNavigationControl addCommands(String commands) {
+        String commands = rover.getExploreCommands();
+        
         if (commands == null || EMPTY.equals(commands)) {
-            throw new IllegalArgumentException("Commands is invalid!");
+            throw new IllegalArgumentException("Commands is invalid! (null or empty)");
         }
         
-        Matcher matcher = PATTERN.matcher(commands);
+        Matcher matcher = DataPattern.MOVE_COMMANDS.matcher(commands);
         if (matcher.find()) {
             throw new IllegalArgumentException(String.format("The command \"%s\" is invalid!", matcher.group()));
         }
         
-        this.commands = commands;
+        this.rover = rover;
         return this;
     }
 
@@ -85,7 +73,7 @@ public class RoverNavigationControl {
         }
         
         //Spliting by all chars
-        String[] split = this.commands.split("|");
+        String[] split = this.rover.getExploreCommands().split("|");
         for (String s : split) {
             //For each letter from array, parse to a Command
             Command command = Command.valueOf(s);
@@ -97,7 +85,7 @@ public class RoverNavigationControl {
             }
         }
         
-        //return last position after the commands
+        //return actual position after execute commands
         return String.format("%d %d %s", rover.getAxisX(), rover.getAxisY(), rover.getGuidance().toString());
     }
     
