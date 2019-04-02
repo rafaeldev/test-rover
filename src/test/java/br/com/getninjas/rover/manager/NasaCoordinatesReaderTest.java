@@ -14,14 +14,7 @@ import static org.junit.Assert.*;
 public class NasaCoordinatesReaderTest {
     
     NasaCoordinatesReader ncr;
-    
-    public NasaCoordinatesReaderTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
@@ -31,10 +24,6 @@ public class NasaCoordinatesReaderTest {
         ncr = new NasaCoordinatesReader();
     }
     
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of readFromResource method, of class NasaCoordinatesReader.
      */
@@ -43,15 +32,14 @@ public class NasaCoordinatesReaderTest {
         assertNotNull(ncr.readFromResource());
     }
 
-    //ALERT: For this test work well this file need exists
-    private static final String PATH = "C:\\commands.txt";
-    
     /**
      * Test of readFromPath method, of class NasaCoordinatesReader.
      */
     @Test
     public void testReadFromPath() {
-        assertNotNull(ncr.readFromPath(PATH));
+        String path = getClass().getResource("/nasa-coordinates-test.txt").getPath();
+
+        assertNotNull(ncr.readFromPath(path));
     }
     
 }
